@@ -1,0 +1,26 @@
+{
+  "name": "event-pool",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kettanaito/event-pool.git"
+  },
+  "keywords": [
+    "event",
+    "event",
+    "pool",
+    "event",
+    "handling"
+  ],
+  "author": "Artem Zakharchenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kettanaito/event-pool/issues"
+  },
+  "homepage": "https://github.com/kettanaito/event-pool#readme"
+}
