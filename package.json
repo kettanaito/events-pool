@@ -5,9 +5,10 @@
   "source": "src/index.js",
   "main": "lib/index.js",
   "scripts": {
-    "test": "test",
+    "test": "mocha ./tests",
     "flow": "flow",
-    "build": "webpack"
+    "build": "webpack",
+    "prepublish": "npm test && npm run build"
   },
   "repository": {
     "type": "git",
