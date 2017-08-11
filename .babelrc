@@ -7,5 +7,8 @@
         }],
         "flow"
     ],
-    "plugins": ["transform-object-rest-spread"]
+    "plugins": [
+        "add-module-exports",
+        "transform-object-rest-spread"
+    ]
 }
