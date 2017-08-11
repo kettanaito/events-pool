@@ -41,4 +41,4 @@ const EventPool = (options: EventPoolOptions) => {
   }, false));
 };
 
-module.exports = EventPool;
+export default EventPool;

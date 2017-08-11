@@ -2,10 +2,12 @@
   "name": "event-pool",
   "version": "0.1.0",
   "description": "Accumulate multiple dispatched events into a single event pool.",
-  "main": "index.js",
+  "source": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "test",
-    "flow": "flow"
+    "flow": "flow",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -26,9 +28,14 @@
   },
   "homepage": "https://github.com/kettanaito/event-pool#readme",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
     "chai": "^4.1.1",
     "flow-bin": "^0.52.0",
     "mocha": "^3.5.0",
-    "webpack": "^3.4.1"
+    "webpack": "^3.5.3"
   }
 }
