@@ -1,7 +1,10 @@
 /* @flow */
-type EventPoolOptions = {
+type TEventPoolOptions = {
   /* Name(s) of events to listen to */
   events: Array<string> | string,
+
+  /* */
+  eventTraget: EventTarget,
 
   /* Function to call once timeout is reached */
   callback: (pool: Array<mixed>, event: CustomEvent | Event) => void,
@@ -14,16 +17,17 @@ type EventPoolOptions = {
 }
 
 /* Default options */
-const defaultOptions: EventPoolOptions = {
+const defaultOptions: TEventPoolOptions = {
   events: '',
+  eventTraget: document,
   callback: pool => console.log('Accumulated pool:', pool),
   timeout: 20,
   aggregate: false
 };
 
-const EventPool = (options: EventPoolOptions) => {
+const EventPool = (options: TEventPoolOptions) => {
   /* Combine and destruct the options */
-  const { events, timeout, callback, aggregate } = { ...defaultOptions, ...options };
+  const { events, eventTarget, timeout, callback, aggregate } = { ...defaultOptions, ...options };
 
   /* Ensure event names are always in an Array */
   const eventsList: Array<string> = Array.isArray(events) ? events : [events];
@@ -34,7 +38,7 @@ const EventPool = (options: EventPoolOptions) => {
 
   /* Loop through each event name and attach a proper event listener to it */
   eventsList.forEach((eventName: string) => {
-    const eventHandler = document.addEventListener(eventName, (event: CustomEvent | Event) => {
+    const eventHandler = eventTarget.addEventListener(eventName, (event: CustomEvent | Event) => {
       /* Aggregate custom event details or general event instances */
       pool.push((event instanceof CustomEvent) ? event.detail : event);
 
@@ -54,7 +58,7 @@ const EventPool = (options: EventPoolOptions) => {
           runningTimeout = 0;
 
           /* Remove the event listener */
-          document.removeEventListener(eventName, eventHandler, false);
+          eventTarget.removeEventListener(eventName, eventHandler, false);
         }, timeout);
       }
     }, false);
