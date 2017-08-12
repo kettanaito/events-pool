@@ -5,6 +5,20 @@ describe('Technical:', () => {
 });
 
 describe('Basics:', () => {
+  it('Accept custom EventTarget', (done) => {
+    const boxDOMElement = document.getElementById('box');
+
+    new EventPool({
+      events: 'click',
+      eventTarget: boxDOMElement,
+      callback() {
+        return done();
+      }
+    });
+
+    boxDOMElement.click();
+  });
+
   it('Single event: Catch correctly', (done) => {
     new EventPool({
       events: 'customEvent',
