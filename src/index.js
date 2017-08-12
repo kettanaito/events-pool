@@ -33,27 +33,34 @@ const EventPool = (options: EventPoolOptions) => {
   let runningTimeout: number = 0;
 
   /* Loop through each event name and attach a proper event listener to it */
-  eventsList.forEach(eventName => document.addEventListener(eventName, (event: CustomEvent | Event) => {
-    /* Aggregate custom event details or general event instances */
-    pool.push((event instanceof CustomEvent) ? event.detail : event);
+  eventsList.forEach((eventName: string) => {
+    const eventHandler = document.addEventListener(eventName, (event: CustomEvent | Event) => {
+      /* Aggregate custom event details or general event instances */
+      pool.push((event instanceof CustomEvent) ? event.detail : event);
 
-    /* Determine whether should set a timeout */
-    const shouldSetTimeout: boolean = (aggregate || !runningTimeout);
+      /* Determine whether should set a timeout */
+      const shouldSetTimeout: boolean = (aggregate || !runningTimeout);
 
-    /* Clear perviously running timeout in aggregate mode */
-    if (aggregate) clearTimeout(runningTimeout);
+      /* Clear perviously running timeout in aggregate mode */
+      if (aggregate) clearTimeout(runningTimeout);
 
-    if (shouldSetTimeout) {
-      /* Set the timeout to execute a callback function after it is reached */
-      runningTimeout = setTimeout(() => {
-        callback(pool, event);
+      if (shouldSetTimeout) {
+        /* Set the timeout to execute a callback function after it is reached */
+        runningTimeout = setTimeout(() => {
+          callback(pool, event);
 
-        /* Reset the inner state for the further accumulation */
-        pool = [];
-        runningTimeout = 0;
-      }, timeout);
-    }
-  }, false));
+          /* Reset the inner state for the further accumulation */
+          pool = [];
+          runningTimeout = 0;
+
+          /* Remove the event listener */
+          document.removeEventListener(eventName, eventHandler, false);
+        }, timeout);
+      }
+    }, false);
+  });
+
+  return this;
 };
 
 export default EventPool;
