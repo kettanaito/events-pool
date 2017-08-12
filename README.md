@@ -31,6 +31,7 @@ window.dispatchEvent(promoViewEvent);
 
 ### Options
 * `events: Array<string> | string` Event(s) to listen to.
+* `eventTarget: EventTarget` Custom EventTarget (default: `document`).
 * `timeout: number` Timeout duration (ms), or aggregate time (when `aggregate` is set to `true`).
 * `callback: Function(pool: Array<mixed>, event: CustomEvent | Event)` Callback function to call after the set timeout is reached (or aggregation timeout is idle). A `pool` argument accumulates the data passed in `CustomEvent.detail`, or an event instances (in case of listening to general events).
 * `aggregate: boolean` Enable aggregation mode. In this mode each next bubbled event prolongs the duration of the listener by the `timeout` value. Once no new event was dispatched within the aggregation period, a callback function is being called.
