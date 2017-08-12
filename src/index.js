@@ -4,12 +4,12 @@ type EventPoolOptions = {
   events: Array<string> | string,
 
   /* Function to call once timeout is reached */
-  callback: (pool: Array<mixed>, event?: CustomEvent | Event) => void,
+  callback: (pool: Array<mixed>, event: CustomEvent | Event) => void,
 
   /* Timeout (ms) before the callback / next aggregation */
   timeout: number,
 
-  /* Aggregate the timeout by its value once next event is caught */
+  /* Enable prolonging the timeout by its value once the next event is caught */
   aggregate: boolean
 }
 
@@ -23,31 +23,34 @@ const defaultOptions: EventPoolOptions = {
 
 const EventPool = (options: EventPoolOptions) => {
   /* Combine and destruct the options */
-  const { events, timeout, callback } = { ...defaultOptions, ...options };
+  const { events, timeout, callback, aggregate } = { ...defaultOptions, ...options };
 
   /* Ensure event names are always in an Array */
-  const eventsList = Array.isArray(events) ? events : [events];
+  const eventsList: Array<string> = Array.isArray(events) ? events : [events];
 
   /* Declare internal state variables */
   let pool: Array<any> = [];
-  let hasTimerStarted = false;
+  let runningTimeout: number = 0;
 
   /* Loop through each event name and attach a proper event listener to it */
   eventsList.forEach(eventName => document.addEventListener(eventName, (event: CustomEvent | Event) => {
     /* Aggregate custom event details or general event instances */
     pool.push((event instanceof CustomEvent) ? event.detail : event);
 
-    if (!hasTimerStarted) {
-      /* Set off the timeout after first caught event */
-      hasTimerStarted = true;
+    /* Determine whether should set a timeout */
+    const shouldSetTimeout: boolean = (aggregate || !runningTimeout);
 
+    /* Clear perviously running timeout in aggregate mode */
+    if (aggregate) clearTimeout(runningTimeout);
+
+    if (shouldSetTimeout) {
       /* Set the timeout to execute a callback function after it is reached */
-      setTimeout(() => {
+      runningTimeout = setTimeout(() => {
         callback(pool, event);
 
         /* Reset the inner state for the further accumulation */
         pool = [];
-        hasTimerStarted = false;
+        runningTimeout = 0;
       }, timeout);
     }
   }, false));
