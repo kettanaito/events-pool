@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Super secret stuff
+internal
+
 # Build
 lib/
 
