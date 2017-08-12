@@ -26,7 +26,7 @@ const promoViewEvent = new CustomEvent('promotionView', {
   detail: { ... }
 });
 
-window.dispatchEvent(promoViewEvent);
+document.dispatchEvent(promoViewEvent);
 ```
 
 ### Options

@@ -5,7 +5,7 @@
   "source": "src/index.js",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha ./tests/*.test.js",
+    "test": "mocha ./tests/*.spec.js",
     "flow": "flow",
     "build": "webpack",
     "prepublish": "npm test && npm run build"
