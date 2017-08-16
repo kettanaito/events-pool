@@ -40,7 +40,7 @@ const EventPool = (options: TEventPoolOptions) => {
   eventsList.forEach((eventName: string) => {
     const eventHandler = eventTarget.addEventListener(eventName, (event: CustomEvent | Event) => {
       /* Aggregate custom event details or general event instances */
-      pool.push((event instanceof CustomEvent) ? event.detail : event);
+      pool.push((event instanceof CustomEvent && event.detail) ? event.detail : event);
 
       /* Determine whether should set a timeout */
       const shouldSetTimeout: boolean = (aggregate || !runningTimeout);
