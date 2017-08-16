@@ -3,8 +3,8 @@ type TEventPoolOptions = {
   /* Name(s) of events to listen to */
   events: Array<string> | string,
 
-  /* */
-  eventTraget: EventTarget,
+  /* Even target to dispatch expected event(s) */
+  eventTarget: EventTarget,
 
   /* Function to call once timeout is reached */
   callback: (pool: Array<mixed>, event: CustomEvent | Event) => void,
@@ -19,7 +19,7 @@ type TEventPoolOptions = {
 /* Default options */
 const defaultOptions: TEventPoolOptions = {
   events: '',
-  eventTraget: document,
+  eventTarget: document,
   callback: pool => console.log('Accumulated pool:', pool),
   timeout: 20,
   aggregate: false
@@ -45,7 +45,7 @@ const EventPool = (options: TEventPoolOptions) => {
       /* Determine whether should set a timeout */
       const shouldSetTimeout: boolean = (aggregate || !runningTimeout);
 
-      /* Clear perviously running timeout in aggregate mode */
+      /* Clear perviously running timeout in aggregation mode */
       if (aggregate) clearTimeout(runningTimeout);
 
       if (shouldSetTimeout) {
