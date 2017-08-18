@@ -2,8 +2,10 @@ const path = require('path');
 const webpack = require('webpack');
 const packageJson = require('./package.json');
 
+const SRC_PATH = path.resolve(__dirname, packageJson.source);
+
 module.exports = {
-    entry: path.resolve(__dirname, packageJson.source),
+    entry: SRC_PATH,
     output: {
         path: __dirname,
         filename: packageJson.main,
@@ -16,6 +18,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
+                include: SRC_PATH,
                 use: 'babel-loader'
             }
         ]
