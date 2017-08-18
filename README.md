@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://github.com/kettanaito/event-pool">
+    <img src="./icon.png" />
+  </a>
+</p>
+
 # Event pool
 Accumulate multiple events from different sources into a single pool and dispatch a callback function afterward.
 
