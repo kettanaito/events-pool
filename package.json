@@ -1,6 +1,6 @@
 {
   "name": "events-pool",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Accumulate multiple dispatched events into a single event pool.",
   "source": "src/index.js",
   "main": "lib/index.js",
