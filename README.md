@@ -1,3 +1,6 @@
+![Package version](https://badge.fury.io/js/events-pool.svg)
+![Dependencies Status](https://david-dm.org/kettanaito/events-pool.svg)
+
 <p align="center">
   <a href="https://github.com/kettanaito/events-pool">
     <img src="./icon.png" />
@@ -5,7 +8,7 @@
 </p>
 
 # Events pool
-Accumulate multiple events from different sources into a single pool and dispatch a callback function afterward.
+Accumulate multiple events from different sources into a single pool and dispatch a callback function afterward. Supports data aggregation as well!
 
 ## Getting started
 ### Installation
