@@ -7,7 +7,7 @@ function createElement (elementName) {
  */
 describe('Module', () => {
   it('Can be imported', () => {
-    return expect(EventPool).to.not.be.undefined;
+    return expect(EventsPool).to.not.be.undefined;
   })
 });
 
@@ -16,7 +16,7 @@ describe('Module', () => {
  */
 describe('Basics', () => {
   it('Dispatch events from document by default', (done) => {
-    EventPool({
+    EventsPool({
       events: 'documentEvent',
       callback() {
         return done();
@@ -29,7 +29,7 @@ describe('Basics', () => {
   it('Dispatch events from custom eventTarget', (done) => {
     const eventTarget = createElement('eventtarget');
 
-    EventPool({
+    EventsPool({
       events: 'click',
       eventTarget,
       callback() {
@@ -45,7 +45,7 @@ describe('Basics', () => {
    */
   describe('Single event', () => {
     it('Catch event correctly', (done) => {
-      EventPool({
+      EventsPool({
         events: 'customEvent',
         callback() {
           return done();
@@ -57,7 +57,7 @@ describe('Basics', () => {
     });
   
     it('Receive data successfully', (done) => {
-      EventPool({
+      EventsPool({
         events: 'onApplePick',
         callback(pool) {
           expect(pool).to.not.be.undefined;
@@ -78,7 +78,7 @@ describe('Basics', () => {
    */
   describe('Multiple events', () => {
     it('Catch events correctly', (done) => {
-      EventPool({
+      EventsPool({
         events: 'multipleEvent_1',
         callback(pool) {
           expect(pool.length).to.equal(2);
@@ -93,7 +93,7 @@ describe('Basics', () => {
     });
 
     it('Aggregate data successfully', (done) => {
-      EventPool({
+      EventsPool({
         events: 'multipleEvent_2',
         callback(pool) {
           const sum = pool.reduce((number, entry) => number += entry.number, 0);
@@ -122,7 +122,7 @@ describe('Advanced', () => {
 
   describe('Aggregation mode', () => {
     it('Enable only when explicitly requested', function (done) {
-      EventPool({
+      EventsPool({
         events: 'aggregateEvent_2',
         timeout: 300,
         callback(pool) {
@@ -141,7 +141,7 @@ describe('Advanced', () => {
     });
 
     it('Calculate aggregation timeout correctly', (done) => {
-      EventPool({
+      EventsPool({
         events: 'aggregateEvent',
         aggregate: true,
         timeout: 300,

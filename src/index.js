@@ -1,5 +1,5 @@
 /* @flow */
-type TEventPoolOptions = {
+type TEventsPoolOptions = {
   /* Name(s) of events to listen to */
   events: Array<string> | string,
 
@@ -17,7 +17,7 @@ type TEventPoolOptions = {
 }
 
 /* Default options */
-const defaultOptions: TEventPoolOptions = {
+const defaultOptions: TEventsPoolOptions = {
   events: '',
   eventTarget: document,
   callback: pool => console.log('Accumulated pool:', pool),
@@ -25,7 +25,7 @@ const defaultOptions: TEventPoolOptions = {
   aggregate: false
 };
 
-const EventPool = (options: TEventPoolOptions) => {
+const EventsPool = (options: TEventsPoolOptions) => {
   /* Combine and destruct the options */
   const { events, eventTarget, timeout, callback, aggregate } = { ...defaultOptions, ...options };
 
@@ -67,4 +67,4 @@ const EventPool = (options: TEventPoolOptions) => {
   return this;
 };
 
-export default EventPool;
+export default EventsPool;

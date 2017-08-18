@@ -1,5 +1,5 @@
 {
-  "name": "event-pool",
+  "name": "events-pool",
   "version": "0.1.0",
   "description": "Accumulate multiple dispatched events into a single event pool.",
   "source": "src/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kettanaito/event-pool.git"
+    "url": "git+https://github.com/kettanaito/events-pool.git"
   },
   "keywords": [
     "event",
@@ -24,9 +24,9 @@
   "author": "Artem Zakharchenko",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kettanaito/event-pool/issues"
+    "url": "https://github.com/kettanaito/events-pool/issues"
   },
-  "homepage": "https://github.com/kettanaito/event-pool#readme",
+  "homepage": "https://github.com/kettanaito/events-pool#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-loader": "^7.1.1",

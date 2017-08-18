@@ -1,25 +1,25 @@
 <p align="center">
-  <a href="https://github.com/kettanaito/event-pool">
+  <a href="https://github.com/kettanaito/events-pool">
     <img src="./icon.png" />
   </a>
 </p>
 
-# Event pool
+# Events pool
 Accumulate multiple events from different sources into a single pool and dispatch a callback function afterward.
 
 ## Getting started
 ### Installation
-Install `event-pool` using NPM:
+Install `events-pool` using NPM:
 ```
-npm install --save event-pool
+npm install --save events-pool
 ```
 
 ### Usage
 ```js
-import EventPool from 'event-pool';
+import EventsPool from 'events-pool';
 
 /* Create a new event pool */
-new EventPool({
+new EventsPool({
   events: 'promotionView',
   callback(pool) {
     dataLayer.push(pool);
@@ -43,4 +43,4 @@ document.dispatchEvent(promoViewEvent);
 * `aggregate: boolean` Enable aggregation mode. In this mode each next bubbled event prolongs the duration of the listener by the `timeout` value. Once no new event was dispatched within the aggregation period, a callback function is being called.
 
 ## Contribution
-Feel free to submit a new [Issue](https://github.com/kettanaito/event-pool/issues) or a [Pull request](https://github.com/kettanaito/event-pool/pulls) in case you find the essential functionality missing in `EventPool`, or discover a bug.
+Feel free to submit a new [Issue](https://github.com/kettanaito/event-pool/issues) or a [Pull request](https://github.com/kettanaito/event-pool/pulls) in case you find the essential functionality missing in `EventsPool`, or discover a bug.
