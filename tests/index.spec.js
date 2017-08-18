@@ -61,7 +61,7 @@ describe('Basics', () => {
         events: 'onApplePick',
         callback(pool) {
           expect(pool).to.not.be.undefined;
-          expect(pool[0].apples).to.equal(4);
+          expect(pool[0].detail.apples).to.equal(4);
           return done();
         }
       });
@@ -96,7 +96,7 @@ describe('Basics', () => {
       EventsPool({
         events: 'multipleEvent_2',
         callback(pool) {
-          const sum = pool.reduce((number, entry) => number += entry.number, 0);
+          const sum = pool.reduce((number, { detail }) => number += detail.number, 0);
   
           expect(pool.length).to.equal(2);
           expect(sum).to.equal(10);
@@ -126,7 +126,6 @@ describe('Advanced', () => {
         events: 'aggregateEvent_2',
         timeout: 300,
         callback(pool) {
-          console.log('test1:', pool);
           expect(pool.length).to.equal(2);
           return done();
         }

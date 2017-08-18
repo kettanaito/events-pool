@@ -51,7 +51,8 @@ Target of the subscribed event(s). For example, a DOMElement.
 A duration (ms) of the timeout. When `aggregate: true`, stands for a time limit within which a new event is expected after catching the previous one.
 
 #### `callback: Function(pool: Array<mixed>, event: CustomEvent | Event)`
-A callback function executed once the timeout is reached. Each caught event is being accumulated into a `pool` argument. Depending on the type of the caught event, whether it is a general `Event` or a `CustomEvent`, pool gathers `Event` Objects or `CustomEvent.details` respectively.
+A callback function executed once the timeout is reached. An instance of each caught event (`Event` or `CustomEvent`) is being accumulated into a single `pool` argument.
+> Note: Using `CustomEvent.detail` it is possible to pass and accumulate a custom data within the event.
 
 #### `aggregate: boolean`
 Enable/disable aggregation mode. When the latter is enabled, each caught event prolongs the time within the pool expect to receive a new event by the amount of `timeout`. Once no events are received within this time period, a `callback` function is called.
