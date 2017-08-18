@@ -8,7 +8,7 @@
     "test": "mocha ./tests/*.spec.js",
     "flow": "flow",
     "build": "webpack",
-    "prepublish": "npm test && npm run build"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,8 +19,7 @@
     "events",
     "pool",
     "event pool",
-    "events pool",
-    "handling"
+    "events pool"
   ],
   "author": "Artem Zakharchenko",
   "license": "MIT",
