@@ -39,11 +39,22 @@ document.dispatchEvent(promoViewEvent);
 ```
 
 ### Options
-* `events: Array<string> | string` Event(s) to listen to.
-* `eventTarget: EventTarget` Custom EventTarget (default: `document`).
-* `timeout: number` Timeout duration (ms), or aggregate time (when `aggregate` is set to `true`).
-* `callback: Function(pool: Array<mixed>, event: CustomEvent | Event)` Callback function to call after the set timeout is reached (or aggregation timeout is idle). A `pool` argument accumulates the data passed in `CustomEvent.detail`, or an event instances (in case of listening to general events).
-* `aggregate: boolean` Enable aggregation mode. In this mode each next bubbled event prolongs the duration of the listener by the `timeout` value. Once no new event was dispatched within the aggregation period, a callback function is being called.
+#### `events: Array<string> | string`
+A single event, or a list of event names to listen to.
+
+#### `eventTarget: EventTarget`
+**Default:** `document`
+
+Target of the subscribed event(s). For example, a DOMElement.
+
+#### `timeout: number`
+A duration (ms) of the timeout. When `aggregate: true`, stands for a time limit within which a new event is expected after catching the previous one.
+
+#### `callback: Function(pool: Array<mixed>, event: CustomEvent | Event)`
+A callback function executed once the timeout is reached. Each caught event is being accumulated into a `pool` argument. Depending on the type of the caught event, whether it is a general `Event` or a `CustomEvent`, pool gathers `Event` Objects or `CustomEvent.details` respectively.
+
+#### `aggregate: boolean`
+Enable/disable aggregation mode. When the latter is enabled, each caught event prolongs the time within the pool expect to receive a new event by the amount of `timeout`. Once no events are received within this time period, a `callback` function is called.
 
 ## Contribution
 Feel free to submit a new [Issue](https://github.com/kettanaito/event-pool/issues) or a [Pull request](https://github.com/kettanaito/event-pool/pulls) in case you find the essential functionality missing in `EventsPool`, or discover a bug.
