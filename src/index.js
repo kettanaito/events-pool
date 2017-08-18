@@ -7,7 +7,7 @@ type TEventsPoolOptions = {
   eventTarget: EventTarget,
 
   /* Function to call once timeout is reached */
-  callback: (pool: Array<mixed>, event: CustomEvent | Event) => void,
+  callback: (pool: Array<CustomEvent | Event>, data: Array<mixed>) => void,
 
   /* Timeout (ms) before the callback / next aggregation */
   timeout: number,
@@ -51,7 +51,13 @@ const EventsPool = (options: TEventsPoolOptions) => {
       if (shouldSetTimeout) {
         /* Set the timeout to execute a callback function after it is reached */
         runningTimeout = setTimeout(() => {
-          callback(pool, event);
+          /* Accumulate the data from all caught CustomEvents */
+          const data = pool.reduce((data, { detail }) => {
+            return (detail || detail === false) ? data.concat(detail) : data;
+          }, []);
+
+          /* Invoke the callback */
+          callback(pool, data);
 
           /* Reset the inner state for the further accumulation */
           pool = [];

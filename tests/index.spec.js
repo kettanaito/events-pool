@@ -59,9 +59,11 @@ describe('Basics', () => {
     it('Receive data successfully', (done) => {
       EventsPool({
         events: 'onApplePick',
-        callback(pool) {
-          expect(pool).to.not.be.undefined;
-          expect(pool[0].detail.apples).to.equal(4);
+        callback(events, data) {
+          expect(events).to.not.be.undefined;
+          expect(data).to.not.be.undefined;
+          expect(data[0].apples).to.equal(4);
+
           return done();
         }
       });
@@ -80,8 +82,10 @@ describe('Basics', () => {
     it('Catch events correctly', (done) => {
       EventsPool({
         events: 'multipleEvent_1',
-        callback(pool) {
-          expect(pool.length).to.equal(2);
+        callback(events, data) {
+          expect(events.length).to.equal(2);
+          expect(data.length).to.equal(0);
+
           return done();
         }
       });
@@ -95,11 +99,12 @@ describe('Basics', () => {
     it('Aggregate data successfully', (done) => {
       EventsPool({
         events: 'multipleEvent_2',
-        callback(pool) {
-          const sum = pool.reduce((number, { detail }) => number += detail.number, 0);
+        callback(events, data) {
+          const sum = data.reduce((number, entry) => number += entry.number, 0);
   
-          expect(pool.length).to.equal(2);
+          expect(events.length).to.equal(2);
           expect(sum).to.equal(10);
+
           return done();
         }
       });
@@ -125,8 +130,8 @@ describe('Advanced', () => {
       EventsPool({
         events: 'aggregateEvent_2',
         timeout: 300,
-        callback(pool) {
-          expect(pool.length).to.equal(2);
+        callback(events) {
+          expect(events.length).to.equal(2);
           return done();
         }
       });
@@ -144,8 +149,8 @@ describe('Advanced', () => {
         events: 'aggregateEvent',
         aggregate: true,
         timeout: 300,
-        callback(pool) {
-          expect(pool.length).to.equal(3);
+        callback(events) {
+          expect(events.length).to.equal(3);
           return done();
         }
       });

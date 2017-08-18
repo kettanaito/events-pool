@@ -24,14 +24,14 @@ import EventsPool from 'events-pool';
 /* Create a new event pool */
 new EventsPool({
   events: 'promotionView',
-  callback(pool) {
-    dataLayer.push(pool);
+  callback(events, data) {
+    dataLayer.push(data);
   }
 });
 
 /* Dispatch a custom event with data */
 const promoViewEvent = new CustomEvent('promotionView', {
-  /* Custom data is accessible from callback's "pool" argument */
+  /* Accumulated data is accessible from callback's "data" argument */
   detail: { ... }
 });
 
@@ -50,9 +50,10 @@ Target of the subscribed event(s). For example, a DOMElement.
 #### `timeout: number`
 A duration (ms) of the timeout. When `aggregate: true`, stands for a time limit within which a new event is expected after catching the previous one.
 
-#### `callback: Function(pool: Array<mixed>, event: CustomEvent | Event)`
-A callback function executed once the timeout is reached. An instance of each caught event (`Event` or `CustomEvent`) is being accumulated into a single `pool` argument.
-> Note: Using `CustomEvent.detail` it is possible to pass and accumulate a custom data within the event.
+#### `callback: Function(events: Array<CustomEvent | Event>, data: Array<mixed>)`
+A callback function executed once the timeout is reached. An instance of each caught event (`Event` or `CustomEvent`) is being accumulated into a single pool - `events` argument.
+
+Using `CustomEvent.detail` it is possible to pass and accumulate a custom data within the event. All the data provided this way will be accessible under a single `data` argument.
 
 #### `aggregate: boolean`
 Enable/disable aggregation mode. When the latter is enabled, each caught event prolongs the time within the pool expect to receive a new event by the amount of `timeout`. Once no events are received within this time period, a `callback` function is called.
