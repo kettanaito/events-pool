@@ -30,7 +30,6 @@ module.exports = {
             comments: false,
             compress: {
                 drop_console: true,
-                screw_ie8: true,
                 warnings: false
             }
         })
