@@ -1,5 +1,5 @@
-![Package version](https://badge.fury.io/js/events-pool.svg)
-![Dependencies Status](https://david-dm.org/kettanaito/events-pool.svg)
+![Package version](https://img.shields.io/npm/v/events-pool.svg?style=flat-square)
+![Dependencies Status](https://david-dm.org/kettanaito/events-pool.svg?style=flat-square)
 
 <p align="center">
   <a href="https://github.com/kettanaito/events-pool">
