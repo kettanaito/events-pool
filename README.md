@@ -1,5 +1,11 @@
-![Package version](https://img.shields.io/npm/v/events-pool.svg?style=flat-square)
-![Dependencies Status](https://david-dm.org/kettanaito/events-pool.svg?style=flat-square)
+<p align="center">
+  <a href="https://www.npmjs.com/package/events-pool" title="NPM version">
+    <img src="https://img.shields.io/npm/v/events-pool.svg?style=flat-square" />
+  </a>
+  <a href="https://www.npmjs.com/package/events-pool" title="Dependency status">
+    <img src="https://david-dm.org/kettanaito/events-pool.svg?style=flat-square" />
+  </a>
+</p>
 
 <p align="center">
   <a href="https://github.com/kettanaito/events-pool">
