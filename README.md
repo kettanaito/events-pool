@@ -20,7 +20,7 @@ Accumulate multiple events from different sources into a single pool and dispatc
 ### Installation
 Install `events-pool` using NPM:
 ```
-npm install --save events-pool
+npm install events-pool --save
 ```
 
 ### Usage
@@ -30,6 +30,7 @@ import EventsPool from 'events-pool';
 /* Create a new event pool */
 new EventsPool({
   events: 'promotionView',
+  target: carouselDOMElement,
   callback(events, data) {
     dataLayer.push(data);
   }
@@ -41,28 +42,29 @@ const promoViewEvent = new CustomEvent('promotionView', {
   detail: { ... }
 });
 
-document.dispatchEvent(promoViewEvent);
+carouselDOMElement.dispatchEvent(promoViewEvent);
 ```
 
 ### Options
 #### `events: Array<string> | string`
-A single event, or a list of event names to listen to.
+A single event or a list of event names to listen to.
 
 #### `eventTarget: EventTarget`
 **Default:** `document`
 
-Target of the subscribed event(s). For example, a DOMElement.
+Target (DOMElement) which is expected to dispatch the event(s).
 
 #### `timeout: number`
 A duration (ms) of the timeout. When `aggregate: true`, stands for a time limit within which a new event is expected after catching the previous one.
 
 #### `callback: Function(events: Array<CustomEvent | Event>, data: Array<mixed>)`
-A callback function executed once the timeout is reached. An instance of each caught event (`Event` or `CustomEvent`) is being accumulated into a single pool - `events` argument.
+A callback function executed once the timeout is reached. An instance of each caught event (`Event` or `CustomEvent`) is being accumulated into a single pool available under the `events` argument.
 
-Using `CustomEvent.detail` it is possible to pass and accumulate a custom data within the event. All the data provided this way will be accessible under a single `data` argument.
+Each data provided through `CustomEvent.detail` is accumulated and accessible under the `data` argument.
 
 #### `aggregate: boolean`
-Enable/disable aggregation mode. When the latter is enabled, each caught event prolongs the time within the pool expect to receive a new event by the amount of `timeout`. Once no events are received within this time period, a `callback` function is called.
+**Default:** `false`
+Enable/disable aggregation mode. When the latter is enabled, each caught event prolongs the time within which the pool expects to receive a new event by the amount of `timeout`. Once no events are received within this time period, a `callback` function is called.
 
 ## Contribution
 Feel free to submit a new [Issue](https://github.com/kettanaito/events-pool/issues) or a [Pull request](https://github.com/kettanaito/events-pool/pulls) in case you find the essential functionality missing in `EventsPool`, or discover a bug.
