@@ -67,4 +67,4 @@ Each data provided through `CustomEvent.detail` is accumulated and accessible un
 Enable/disable aggregation mode. When the latter is enabled, each caught event prolongs the time within which the pool expects to receive a new event by the amount of `timeout`. Once no events are received within this time period, a `callback` function is called.
 
 ## Contribution
-Feel free to submit a new [Issue](https://github.com/kettanaito/events-pool/issues) or a [Pull request](https://github.com/kettanaito/events-pool/pulls) in case you find the essential functionality missing in `EventsPool`, or discover a bug.
+Please see the [Contribution guide](./CONTRIBUTING.md) if you would like to contribute to this repository. Thank you.
