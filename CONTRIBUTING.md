@@ -35,7 +35,7 @@ Found a devastating unexpected behavior? Lets eliminate it together.
 2. Create a [New Issue](https://github.com/kettanaito/events-pool/issues/new) in case there are no duplicates.
 3. Fill in the template with a proper information regarding the bug you have discovered.
 
-If you know a solution and wish to fix that annoying bug, please read the [Git workflow](#git-workflow) section. After the bug is confirmed by the repository's administrators, you may start the fixing process.
+If you know a solution and would like to fix that annoying bug, please read the [Git workflow](#git-workflow) section. After the bug is confirmed by the repository's administrators, you may start the fixing process.
 
 ## Feature request
 There is an obvious functionality missing in the library? Or, maybe, there is *just one thing* which could make your development experience far more superior? Had any of the latter thoughts crossed your mind, feel free to submit a new Feature request.
@@ -48,4 +48,4 @@ Please follow the next guidelines when submitting a new feature:
 4. Once your feature request is approved, you can start the development. Follow the [Git workflow](#git-workflow) to ensure repository is maintained properly.
 
 ## Other ways of contribution
-Feel free to write to the repository's administrators on the matte of other ways of contribution. We will try to answer you as soon as we can to discuss our cooperation.
+Feel free to write to the repository's administrators on the matter of other ways of contribution. We will try to answer you as soon as we can to discuss our cooperation.
