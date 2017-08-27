@@ -1,14 +1,14 @@
 {
   "name": "events-pool",
   "version": "0.2.2",
-  "description": "Accumulate multiple dispatched events into a single event pool.",
+  "description": "Accumulate multiple events (and their data) from different sources into a single pool.",
   "source": "src/index.js",
   "main": "lib/index.js",
   "scripts": {
     "start": "webpack --watch",
-    "test": "mocha tests/**/*.js --compilers js:babel-core/register",
-    "flow": "flow",
     "build": "webpack",
+    "flow": "flow",
+    "test": "mocha tests/**/*.js --compilers js:babel-core/register",
     "prepublish": "npm run build"
   },
   "repository": {
