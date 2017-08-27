@@ -2,7 +2,7 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import EventsPool from '../lib';
 
-function createElement (elementName) {
+function createElement(elementName) {
   return document.body.appendChild(document.createElement(elementName));
 }
 
@@ -55,23 +55,23 @@ describe('Basics', () => {
           return done();
         }
       });
-  
+
       const customEvent = new CustomEvent('customEvent');
       document.dispatchEvent(customEvent);
     });
-  
+
     it('Receive data successfully', (done) => {
       EventsPool({
         events: 'onApplePick',
         callback(events, data) {
           expect(events).to.not.be.undefined;
           expect(data).to.not.be.undefined;
-          expect(data[0].apples).to.equal(4);
+          expect(data[0]).to.have.property('apples', 4);
 
           return done();
         }
       });
-  
+
       const customEvent = new CustomEvent('onApplePick', {
         detail: { apples: 4 }
       });
@@ -85,38 +85,38 @@ describe('Basics', () => {
   describe('Multiple events', () => {
     it('Catch events correctly', (done) => {
       EventsPool({
-        events: 'multipleEvent_1',
+        events: 'multipleEvent',
         callback(events, data) {
-          expect(events.length).to.equal(2);
-          expect(data.length).to.equal(0);
+          expect(events).to.have.property('length', 2);
+          expect(data).to.have.property('length', 0);
 
           return done();
         }
       });
-  
-      const eventEntity = new CustomEvent('multipleEvent_1');
-  
+
+      const eventEntity = new CustomEvent('multipleEvent');
+
       document.dispatchEvent(eventEntity);
       document.dispatchEvent(eventEntity);
     });
 
     it('Aggregate data successfully', (done) => {
       EventsPool({
-        events: 'multipleEvent_2',
+        events: 'multipleEvent2',
         callback(events, data) {
           const sum = data.reduce((number, entry) => number += entry.number, 0);
-  
-          expect(events.length).to.equal(2);
+
+          expect(events).to.have.property('length', 2);
           expect(sum).to.equal(10);
 
           return done();
         }
       });
-  
-      document.dispatchEvent(new CustomEvent('multipleEvent_2', {
+
+      document.dispatchEvent(new CustomEvent('multipleEvent2', {
         detail: { number: 2 }
       }));
-      document.dispatchEvent(new CustomEvent('multipleEvent_2', {
+      document.dispatchEvent(new CustomEvent('multipleEvent2', {
         detail: { number: 8 }
       }));
     });
@@ -130,41 +130,58 @@ describe('Basics', () => {
 describe('Advanced', () => {
 
   describe('Aggregation mode', () => {
-    it('Enable only when explicitly requested', function (done) {
+    it('Aggregate only when explicitly enabled', function (done) {
+      let hasCaught = false;
+      const eventTarget = createElement('eventtarget');
+
       EventsPool({
-        events: 'aggregateEvent_2',
-        timeout: 300,
+        events: 'aggregateEvent',
+        eventTarget,
+        timeout: 100,
         callback(events) {
-          expect(events.length).to.equal(2);
-          return done();
+          if (!hasCaught) {
+            hasCaught = true;
+
+            expect(events).to.have.property('length', 2);
+            return done();
+          }
         }
       });
 
-      const customEvent = new CustomEvent('aggregateEvent_2');
-      const dispatchEvent = () => document.dispatchEvent(customEvent);
+      const customEvent = new CustomEvent('aggregateEvent');
+      const dispatchEvent = () => eventTarget.dispatchEvent(customEvent);
+
+      /* Dispatch the first event */
       dispatchEvent();
 
-      setTimeout(() => dispatchEvent(), 200);
-      setTimeout(() => dispatchEvent(), 400);
+      /* Dispatch the second even within the {timeout} period */
+      setTimeout(() => dispatchEvent(), 50);
+
+      /**
+       * Dispatch the third even after the {timeout} period.
+       * Since aggregation mode is disabled by default, this event
+       * should not be caught.
+       */
+      setTimeout(() => dispatchEvent(), 110);
     });
 
     it('Calculate aggregation timeout correctly', (done) => {
       EventsPool({
-        events: 'aggregateEvent',
+        events: 'aggregateEvent2',
         aggregate: true,
         timeout: 300,
         callback(events) {
-          expect(events.length).to.equal(3);
+          expect(events).to.have.property('length', 3);
           return done();
         }
       });
-  
-      const aggregateEvent = new CustomEvent('aggregateEvent');
+
+      const aggregateEvent = new CustomEvent('aggregateEvent2');
       const dispatchEvent = (callback) => {
         document.dispatchEvent(aggregateEvent);
         if (callback) callback();
       };
-  
+
       /* Dispatch delayed events */
       dispatchEvent(() => setTimeout(() => {
         dispatchEvent(() => setTimeout(() => {
@@ -172,7 +189,6 @@ describe('Advanced', () => {
         }, 200));
       }, 100));
     });
-
   });
 
 });
