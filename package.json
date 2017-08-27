@@ -1,6 +1,6 @@
 {
   "name": "events-pool",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Accumulate multiple events (and their data) from different sources into a single pool.",
   "source": "src/index.js",
   "main": "lib/index.js",
