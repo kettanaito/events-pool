@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "webpack --watch",
-    "test": "mocha --compilers js:babel-core/register  \"tests/**/*@(.js|.jsx)\"",
+    "test": "mocha tests/**/*.js --compilers js:babel-core/register",
     "flow": "flow",
     "build": "webpack",
     "prepublish": "npm run build"
