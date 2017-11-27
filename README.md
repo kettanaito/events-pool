@@ -72,3 +72,8 @@ Enable/disable aggregation mode. When the latter is enabled, each caught event p
 
 ## Contribution
 Please see the [Contribution guide](./CONTRIBUTING.md) if you would like to contribute to this repository. Thank you.
+
+## Lightning talk
+See me giving a lightning talk about EventsPool, how it came to be and how it helped to solve an interesting use case.
+
+[![Lightning Talk - Google Analytics](./lightning-talk-thumbnail.jpg)](https://www.youtube.com/watch?v=at396ZXkxhE)
